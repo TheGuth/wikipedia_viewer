@@ -13,6 +13,7 @@ const query = {
   prop: "info|",
 }
 
+
 function searchWiki(item, callback) {
   query.gapfrom = item;
   $.getJSON(wikipediaUrl, query, callback)
@@ -24,9 +25,25 @@ function wikiCallback (data) {
     appState.pages.push(data.query.pages[id]);
   });
   console.log(appState.pages);
-
+  populateList(appState);
 };
+
+function populateList(appState) {
+  appState.pages.forEach((page) => {
+    $(".results").append(`<a href="https://en.wikipedia.org/?curid=${page.pageid}"><li><h2>${page.title}</h2></li></a>`)
+  });
+}
+
+function grabRandomArticle() {
+  const randomUrl = "https://en.wikipedia.org/?curid="
+  const pageNumber = Math.floor(Math.random()* 10,000).toString;
+}
+
+function eventListeners() {
+$("")
+}
 
 $(()=> {
   searchWiki("word", wikiCallback);
+
 });
